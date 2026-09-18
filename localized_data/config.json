@@ -1,0 +1,32 @@
+{
+    "text_data_dict": "text_data_dict.json",
+
+    "localize_dict": null,
+    "hashed_dict": null,
+    "character_system_text_dict": null,
+    "race_jikkyo_comment_dict": null,
+    "race_jikkyo_message_dict": null,
+
+    "use_text_wrapper": true,
+    "line_width_multiplier": 1.9,
+    "wrapper_penalties": {
+        "nline_penalty": 18,
+        "overflow_penalty": 9,
+        "short_last_line_fraction": 4,
+        "short_last_line_penalty": 18,
+        "hyphen_penalty": 0
+    },
+
+    "skill_formatting": {
+        "name_length": 16,
+        "desc_length": 22,
+        "name_short_lines": 2,
+        "name_short_mult": 0.75,
+        "name_sp_mult": 0.7
+    },
+    "skill_list_item_desc_font_size_multiplier": 0.9,
+
+    "auto_adjust_story_clip_length": false,
+    "now_loading_comic_title_ellipsis": false,
+    "remove_ruby": false
+}

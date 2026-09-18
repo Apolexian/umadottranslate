@@ -1,0 +1,13 @@
+{
+  "name": "umadottranslate",
+  "description": "English skill names and descriptions for Umamusume: Pretty Derby, bridged from uma.guide's translation data. Official Global localization text where a skill exists on the Global client, with generated mechanical effect breakdowns for JP-only skills.",
+  "language": "en",
+  "homepage": "https://github.com/SayaDuck/umadottranslate",
+  "links": [
+    [
+      "uma.guide",
+      "https://uma.guide"
+    ]
+  ],
+  "maintainer": "Apol"
+}

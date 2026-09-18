@@ -1,0 +1,14 @@
+# Game data pulled in to build against, not redistributed here
+*.mdb
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editor / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
