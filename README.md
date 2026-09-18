@@ -16,7 +16,7 @@ Only the `text_data` dictionary, covering two categories:
 | Category | Contents | Entries |
 | --- | --- | --- |
 | `47` | Skill names | 2048 / 2177 |
-| `48` | Skill descriptions | 2174 / 2177 |
+| `48` | Skill descriptions | 2177 / 2177 |
 
 Nothing else is translated. Stories, UI, race commentary and character system
 text are all left to the game's Japanese, so this repo composes cleanly with a
@@ -72,6 +72,12 @@ instead.
 
 ## Known gaps
 
-- **129 skill names** have no English in the source data.
-- **3 skill descriptions** have no usable English from either source.
+Descriptions are complete. Names are too, in practice:
+
+- **129 skill names are absent from the dict on purpose.** They are unique
+  skills the Japanese game already ships in Latin script — `Nemesis`,
+  `Shadow Break`, `KEEP IT REAL.`, `α-star*`, `Vive la GOLD`. The build treats a
+  name as needing no entry when the English matches the source, so these are
+  skipped rather than written as no-op entries. They already display correctly
+  in game.
 - Skill data is only as current as the `master_jp.mdb` you build against.
