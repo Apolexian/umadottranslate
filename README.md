@@ -5,20 +5,42 @@ English skill names and descriptions for Umamusume: Pretty Derby, as a
 
 ## Install
 
-In Hachimi's GUI, open **Change Translation Repo** and enter:
+Hachimi takes the URL of an index file, not a repository URL, and
+**Change Translation Repo** only lists repos it already knows about. To add this
+one, close the game and edit `.tl_repos` in your Hachimi folder (next to
+`config.json`, typically `<game dir>/hachimi/`):
 
-```
-https://github.com/Apolexian/umadottranslate
+```json
+{
+  "repos": [
+    {
+      "id": 1,
+      "index": "https://raw.githubusercontent.com/UmaTL/hachimi-tl-en/release/index.json"
+    },
+    {
+      "id": 2,
+      "index": "https://raw.githubusercontent.com/Apolexian/umadottranslate/master/index.json"
+    }
+  ]
+}
 ```
 
-Hachimi reads everything under `localized_data/`. Restart the game, or use
-**Reload localized data**. Skill text loads at startup.
+Keep the existing entries and give the new one an unused `id`. Start the game,
+open **Change Translation Repo**, and it appears under **Available**. Select it,
+then use **Check for translation updates** to download.
+
+Only one repo is active at a time, so switching to this one replaces a fuller
+patch rather than adding to it.
 
 ## What it changes
 
-Skill names and skill descriptions. Nothing else, so it stacks with a fuller
-patch like [UmaTL](https://github.com/UmaTL/hachimi-tl-en) rather than fighting
-it: every other dictionary is `null` in `config.json`.
+Skill names and skill descriptions. Every other dictionary is `null` in
+`config.json`, so the rest of the game stays Japanese: stories, menus, race
+commentary, character dialogue.
+
+Hachimi runs one repo at a time, so this is not an add-on to a fuller patch like
+[UmaTL](https://github.com/UmaTL/hachimi-tl-en). Selecting it replaces whatever
+was active.
 
 Descriptions come in two styles depending on the skill:
 
@@ -48,6 +70,17 @@ python tools/build_skill_dict.py \
 
 Use `--merge` if you have hand-edited any translations, or the rebuild will
 discard them.
+
+Then regenerate the index and commit both:
+
+```bash
+python tools/gen_index.py
+```
+
+`index.json` carries a BLAKE3 hash and size for every file under
+`localized_data/`. Clients verify downloads against it, so a change committed
+without a fresh index will fail verification on their end. It needs `blake3`
+(`pip install blake3`).
 
 ## Editing translations by hand
 

@@ -1,0 +1,22 @@
+{
+  "base_url": "https://raw.githubusercontent.com/Apolexian/umadottranslate/master/localized_data",
+  "zip_url": "https://codeload.github.com/Apolexian/umadottranslate/zip/refs/heads/master",
+  "zip_dir": "umadottranslate-master/localized_data",
+  "files": [
+    {
+      "path": "config.json",
+      "hash": "2577b683479bf1f46d6005209fde526540e46d330d55a71bdff9d60a74f104bf",
+      "size": 834
+    },
+    {
+      "path": "info.json",
+      "hash": "ec3e8717f508f3ccd2a30b54a9d86ead55a2cc1d30027fe4a3a45327f5a9ca04",
+      "size": 483
+    },
+    {
+      "path": "text_data_dict.json",
+      "hash": "3a6623d77a2bfd934abba17d37aac1652f790268492a61c15c3d5f2d3f3b3fd4",
+      "size": 426867
+    }
+  ]
+}
