@@ -1,47 +1,38 @@
 # umadottranslate
 
-A [Hachimi](https://hachimi.noccu.art) translation repo providing English skill
-names and descriptions for Umamusume: Pretty Derby, generated from
-[uma.guide](https://uma.guide)'s translation data.
+English skill names and descriptions for Umamusume: Pretty Derby, as a
+[Hachimi](https://hachimi.noccu.art) translation repo.
 
-## Installing
+## Install
 
-In Hachimi's GUI, open **Change Translation Repo** and point it at this
-repository. Hachimi reads everything under `localized_data/`.
+In Hachimi's GUI, open **Change Translation Repo** and enter:
 
-## What's in it
+```
+https://github.com/Apolexian/umadottranslate
+```
 
-Only the `text_data` dictionary, covering two categories:
+Hachimi reads everything under `localized_data/`. Restart the game, or use
+**Reload localized data**. Skill text loads at startup.
 
-| Category | Contents | Entries |
-| --- | --- | --- |
-| `47` | Skill names | 2048 / 2177 |
-| `48` | Skill descriptions | 2177 / 2177 |
+## What it changes
 
-Nothing else is translated. Stories, UI, race commentary and character system
-text are all left to the game's Japanese, so this repo composes cleanly with a
-fuller patch rather than competing with it.
+Skill names and skill descriptions. Nothing else, so it stacks with a fuller
+patch like [UmaTL](https://github.com/UmaTL/hachimi-tl-en) rather than fighting
+it: every other dictionary is `null` in `config.json`.
 
-### Description sources
+Descriptions come in two styles depending on the skill:
 
-Descriptions come from two places, preferring the first:
+- Skills that shipped on the Global client use the official English text.
+- JP-only skills use a generated effect breakdown, e.g.
+  `<b>Target Speed +0.35 m/s for 4 s</b> when: Remaining distance ≤150m AND In leading 50%`
 
-1. **Official Global prose** — the real in-game English for the 718 skills that
-   shipped on the Global client.
-2. **Generated mechanical breakdowns** — for JP-only skills, uma.guide's
-   effect summary, e.g. `<b>Target Speed +0.35 m/s for 4 s</b> when: Remaining
-   distance ≤150m AND In leading 50%`. The `<b>` markup renders in game; this is
-   the same style [UmaTL's hachimi-sd](https://github.com/UmaTL/hachimi-sd)
-   ships, and `skill_formatting` in `config.json` keeps the longer strings on
-   screen.
+A handful of unique skills are left alone because the Japanese game already
+names them in English: `Nemesis`, `KEEP IT REAL.`, `α-star*`.
 
-The two styles read differently. That's the tradeoff for full coverage: prose
-where the official localization exists, mechanics where it never did.
+## Rebuilding
 
-## Regenerating
-
-`tools/build_skill_dict.py` rebuilds `text_data_dict.json` from a JP `master.mdb`
-and a local checkout of the uma.guide data directory.
+Only needed if you want to regenerate against newer game data. Requires a JP
+`master.mdb` and a local checkout of [uma.guide](https://github.com/SayaDuck/umaguide).
 
 ```bash
 python tools/build_skill_dict.py \
@@ -50,34 +41,29 @@ python tools/build_skill_dict.py \
   --out   localized_data/text_data_dict.json
 ```
 
-Useful flags:
+| Flag | Effect |
+| --- | --- |
+| `--merge` | Keep entries already in the output file, adding only new ones |
+| `--no-desc` | Skill names only |
 
-- `--merge` keeps entries already in the output file and only adds new keys. Use
-  this once you start hand-editing translations, or the rebuild will discard them.
-- `--no-desc` emits skill names only.
+Use `--merge` if you have hand-edited any translations, or the rebuild will
+discard them.
 
-### How the join works
+## Editing translations by hand
 
-Skill IDs in uma.guide's data are the same integers as `text_data`'s `index`
-column, so entries are matched by ID with no name matching involved. Before
-emitting anything the script re-checks every JP source string in
-`TerumiSimpleSkillDataJPOriginal.json` against category 47 in the mdb and aborts
-if any has drifted.
+`localized_data/text_data_dict.json` is keyed by text_data category, then by
+skill ID:
 
-That check is load-bearing. `index` is **not** unique across categories — ID
-`10071` is a skill, a Gold Ship chocolate item, a team race label and a character
-name, depending on which category you read it under. A silently drifted mapping
-would write skill names over unrelated game text, so the build fails loudly
-instead.
+```json
+{
+  "47": { "10071": "Warning Shot!" },
+  "48": { "10071": "Slightly increase velocity with a long spurt starting halfway through the race." }
+}
+```
 
-## Known gaps
+Category `47` is names, `48` is descriptions. Edit the string, reload, done.
 
-Descriptions are complete. Names are too, in practice:
+## Credits
 
-- **129 skill names are absent from the dict on purpose.** They are unique
-  skills the Japanese game already ships in Latin script — `Nemesis`,
-  `Shadow Break`, `KEEP IT REAL.`, `α-star*`, `Vive la GOLD`. The build treats a
-  name as needing no entry when the English matches the source, so these are
-  skipped rather than written as no-op entries. They already display correctly
-  in game.
-- Skill data is only as current as the `master_jp.mdb` you build against.
+Translation data from [uma.guide](https://uma.guide). Built for
+[Hachimi](https://hachimi.noccu.art).
